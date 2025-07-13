@@ -1,10 +1,10 @@
-use std::{io::Read, time::Duration};
+use std::{io::{Read, Write}, time::Duration};
 
-use base64::{prelude::BASE64_STANDARD, Engine};
-use dialoguer::{theme::ColorfulTheme, Input};
+use base64::{prelude::BASE64_STANDARD, Engine as _};
+use dialoguer::theme::ColorfulTheme;
 
 fn main() {
-    let app_id = Input::<u32>::with_theme(&ColorfulTheme::default())
+    let app_id = dialoguer::Input::<u32>::with_theme(&ColorfulTheme::default())
         .with_prompt("Enter the App ID")
         .interact()
         .unwrap();
@@ -42,6 +42,19 @@ fn main() {
         let steamid = steamworks_sys::SteamAPI_ISteamUser_GetSteamID(user);
         println!("Steam ID: {}", steamid);
         println!("Encrypted App Ticket: {}", ticket);
+
+        let create_config_confirm = dialoguer::Confirm::with_theme(&ColorfulTheme::default())
+            .with_prompt("Do you want to create configs.user.ini file?")
+            .default(true)
+            .interact()
+            .unwrap();
+
+        if create_config_confirm {
+            match create_config(steamid, &ticket) {
+                Ok(_) => println!("configs.user.ini created successfully."),
+                Err(e) => eprintln!("Failed to create configs.user.ini: {}", e),
+            }
+        }
     }
 
     println!("Press Enter to exit...");
@@ -80,4 +93,14 @@ fn run_callbacks(pipe: i32) -> Option<u64> {
 
         call
     }
+}
+
+fn create_config(steamid: u64, ticket: &str) -> std::io::Result<()> {
+    let mut file = std::fs::File::create("configs.user.ini")?;
+    
+    writeln!(file, "[user::general]")?;
+    writeln!(file, "account_steamid={}", steamid)?;
+    writeln!(file, "ticket={}", ticket)?;
+    
+    Ok(())
 }
