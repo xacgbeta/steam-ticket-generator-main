@@ -25,7 +25,7 @@ This project provides an implementation of a encrypted app ticket generator for 
     pyinstaller --onefile main.py --add-binary "steam_api64.dll;."
     ```
 
-    The resulting binary will be located in `/main.dist`.
+    The resulting binary will be located in `/output/main.dist`.
 
 2. **Provide the steam_api64.dll file:**
 
