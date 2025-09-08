@@ -7,19 +7,25 @@ This project provides an implementation of a encrypted app ticket generator for 
  - Each Steam account can achieve at most 5 activations a day.
  - An EncryptedAppTicket expires after 20 minutes and can be used multiple times in that time span, using the same ticket won't bypass the 5 daily activations limit.
 
+## Requirements
+- Steam client running and logged in
+- The account must own the game (App ID) for ticket generation to succeed
+- Python 3.8+ (for running directly without .exe)
+
 ## Usage
 
 1. **Build the project:**
 
     ```sh
-    cargo build --release
+    pip install pyinstaller
+    pyinstaller --onefile main.py --add-binary "steam_api64.dll;."
     ```
 
-    The resulting binary will be located in `target/release/steam_ticket_generator.exe`.
+    The resulting binary will be located in `/main.dist`.
 
 2. **Provide the steam_api64.dll file:**
 
-    Place the `steam_api64.dll` file in the same directory as the generated binary. This file is required to comunicate with the local Steam client.
+    Place the `steam_api64.dll` file in the same directory as the main.py before compiling. This file is required to comunicate with the local Steam client.
 
 3. **Run the generator:**
 
