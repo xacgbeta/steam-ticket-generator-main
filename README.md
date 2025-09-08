@@ -1,3 +1,7 @@
+# Disclaimer
+This project is not a modification of the original Rust implementation.
+It is simply a Python reimplementation of the same logic, created for convenience and ease of use by non-developers.
+
 # Steam Ticket Generator
 
 This project provides an implementation of a encrypted app ticket generator for Steam. The generated ticket can then be used to run games that require a valid ticket to check for game ownership (ex. Denuvo protected games).
@@ -44,7 +48,7 @@ This project provides an implementation of a encrypted app ticket generator for 
 
 ## Builds
 
-Builds are available in the [releases](https://github.com/denuvosanctuary/steam-ticket-generator/releases) section of the repository. Nightly builds are also available in the [actions](https://github.com/denuvosanctuary/steam-ticket-generator/actions) section.
+Builds are available in the [releases](https://github.com/xacgbeta/steam-ticket-python-version/releases/tag/1.1.2) section of the repository.
 
 The builds in the releases section will also include the `steam_api64.dll` file required to run the program. Otherwise you can download it from the [Steamworks SDK](https://partner.steamgames.com/doc/sdk). The minimum required version is 1.62.
 
